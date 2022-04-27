@@ -5,16 +5,25 @@ class Developer {
         this.domains = domains
     }
 
-    get toJson() {
-        return JSON.stringify(this)
+    toJson() {
+        localStorage.setItem(this.name, JSON.stringify(this))
     }
 
     fromJson() {
-        return JSON.parse(this.toJson)
+
+        let obj = localStorage.getItem(this.name)
+        //localStorage.clear('dev1')
+        this.name = JSON.parse(obj).name
+        this.experience = JSON.parse(obj).experience
+        this.domains = JSON.parse(obj).domains
     }
 }
 
 let dev1 = new Developer('John Doe', 10, ['JS','CSS'])
-console.log(dev1.toJson)
-let dev1Restored = dev1.fromJson()
-console.log(dev1Restored)
+
+dev1.toJson()
+dev1.fromJson()
+
+let dev2 = new Developer('Andree', 5, ['JS','CSS', 'Python'])
+dev2.toJson()
+dev2.fromJson()
